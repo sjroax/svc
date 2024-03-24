@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	@GetMapping("/data")
 	public String getData(){
-	return"hello this is updated service before pipeline execution";
+	return"Hello my name is Swapnil";
 	}
 
 }

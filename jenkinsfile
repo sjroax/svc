@@ -20,7 +20,6 @@ pipeline {
 	  stage("To check if service exist"){
 		
 		steps{
-			
 			sh """ 
 			
 			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 

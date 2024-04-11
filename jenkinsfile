@@ -12,7 +12,7 @@ pipeline {
    
    parameters { 
        choice(name: 'ACTION', choices: ['INIT', 'DEPLOY', 'START', 'STOP', 'DELETE', ], description: 'SELECT THE ACTION YOU WANT TO PERFORM WITH THIS SERVICE ') 
-       choice(name: 'SELECT_ENV', choices: ['TEST-ENV', 'PROD-ENV', ], description: 'SELECT THE ENV OF THE SERVICE  ')
+       choice(name: 'SELECT_ENV', choices: ['test-env', 'prod-env', ], description: 'SELECT THE ENV OF THE SERVICE  ')
    }
    
    stages {

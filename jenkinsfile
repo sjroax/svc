@@ -2,11 +2,11 @@ pipeline {
    agent any  
    
    environment {
-        APP_NAME = 'hardcoded-app-name'
-        SERVICE_NAME = 'hardcoded-service-name'
-		svc_exist = 0
-		app_exist = 0
-		env_exist = 0
+        APP_NAME = 'ap1'
+        SERVICE_NAME = 'svc1'
+	svc_exist = 0
+	app_exist = 0
+	env_exist = 0
 	}
    
    

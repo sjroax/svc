@@ -41,11 +41,11 @@ pipeline {
 
 
 
-			if [[ "'''+${params.ACTION}+'''" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 
+			if [[ "${params.ACTION}" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 
 			then 
 				echo "Service Already exist. Please choose the Action other than INIT for this service"
 				exit
-			elif [[ "'''+${params.ACTION}+'''" != "INIT"  ]] && [[ $svc_exist == 0  ]];
+			elif [[ "${params.ACTION}" != "INIT"  ]] && [[ $svc_exist == 0  ]];
 			then
 				echo "Service does not exist. Please Initialize the service by re-running the pipleline and select the INIT action"
 				exit

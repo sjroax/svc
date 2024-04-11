@@ -1,0 +1,61 @@
+pipeline {
+   agent any  
+   
+   environment {
+        APP_NAME = 'hardcoded-app-name'
+        SERVICE_NAME = 'hardcoded-service-name'
+		svc_exist = 0
+		app_exist = 0
+		env_exist = 0
+	}
+   
+   
+   parameters { 
+       choice(name: 'ACTION', choices: ['INIT', 'DEPLOY', 'START', 'STOP', 'DELETE', ], description: 'SELECT THE ACTION YOU WANT TO PERFORM WITH THIS SERVICE ') 
+       choice(name: 'SELECT_ENV', choices: ['TEST-ENV', 'PROD-ENV', ], description: 'SELECT THE ENV OF THE SERVICE  ')
+   }
+   
+   stages {
+
+	  stage("To check if service exist"){
+		
+		steps{
+			
+			sh """ 
+			
+			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 
+			then 
+				app_exist=1
+				if [[ $(copilot env ls --app $APP_NAME | grep $SELECT_ENV ) == $SELECT_ENV ]]; 
+				then 
+					env_exist=1
+					if [[ $(copilot svc ls -a $APP_NAME | awk '{print $1}' | grep $SERVICE_NAME ) == $SERVICE_NAME ]]; 
+					then 
+						if [[ $(copilot svc show --app $APP_NAME  --name $SERVICE_NAME --json | jq '.configurations[].environment' | sed 's/\"//g' | grep $SELECT_ENV) == $SELECT_ENV ]]; 
+						then 
+							svc_exist=1
+						fi
+					fi
+				fi
+			fi
+
+
+
+
+			if [[ "${params.ACTION}" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 
+			then 
+				echo "Service Already exist. Please choose the Action other than INIT for this service"
+				exit
+			elif [[ "${params.ACTION}" != "INIT"  ]] && [[ $svc_exist == 0  ]];
+			then
+				echo "Service does not exist. Please Initialize the service by re-running the pipleline and select the INIT action"
+				exit
+			else
+				echo "Continue the execution in next stage"
+			fi
+
+			
+			"""
+		
+		}
+	  }

@@ -21,16 +21,19 @@ pipeline {
 		
 		steps{
 			sh '''
+
+			ACT=${params.ACTION}
+			ENV=${params.SELECT_ENV}
 			
 			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 
 			then 
 				app_exist=1
-				if [[ $(copilot env ls --app $APP_NAME | grep $SELECT_ENV ) == $SELECT_ENV ]]; 
+				if [[ $(copilot env ls --app $APP_NAME | grep $ENV ) == $ENV ]]; 
 				then 
 					env_exist=1
 					if [[ $(copilot svc ls -a $APP_NAME | awk '{print $1}' | grep $SERVICE_NAME ) == $SERVICE_NAME ]]; 
 					then 
-						if [[ $(copilot svc show --app $APP_NAME  --name $SERVICE_NAME --json | jq '.configurations[].environment' | sed 's/\"//g' | grep $SELECT_ENV) == $SELECT_ENV ]]; 
+						if [[ $(copilot svc show --app $APP_NAME  --name $SERVICE_NAME --json | jq '.configurations[].environment' | sed 's/\"//g' | grep $ENV) == $ENV ]]; 
 						then 
 							svc_exist=1
 						fi
@@ -41,11 +44,11 @@ pipeline {
 
 
 
-			if [[ "${params.ACTION}" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 
+			if [[ "$ACT" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 
 			then 
 				echo "Service Already exist. Please choose the Action other than INIT for this service"
 				exit
-			elif [[ "${params.ACTION}" != "INIT"  ]] && [[ $svc_exist == 0  ]];
+			elif [[ "$ACT" != "INIT"  ]] && [[ $svc_exist == 0  ]];
 			then
 				echo "Service does not exist. Please Initialize the service by re-running the pipleline and select the INIT action"
 				exit

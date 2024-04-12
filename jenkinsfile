@@ -4,9 +4,6 @@ pipeline {
    environment {
         APP_NAME = 'ap1'
         SERVICE_NAME = 'svc1'
-	svc_exist = 0
-	app_exist = 0
-	env_exist = 0
 	}
    
    
@@ -22,17 +19,21 @@ pipeline {
 		steps{
 			sh '''
 
+			svc_exist=0
+			app_exist=0
+			env_exist=0
+			
 			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 
 			then 
-				export app_exist=1
+				app_exist=1
 				if [[ $(copilot env ls --app $APP_NAME | grep $SELECT_ENV ) == $SELECT_ENV ]]; 
 				then 
-					export env_exist=1
+					env_exist=1
 					if [[ $(copilot svc ls -a $APP_NAME | awk '{print $1}' | grep $SERVICE_NAME ) == $SERVICE_NAME ]]; 
 					then 
 						if [[ $(copilot svc show --app $APP_NAME  --name $SERVICE_NAME --json | jq '.configurations[].environment' | sed 's/\"//g' | grep $SELECT_ENV) == $SELECT_ENV ]]; 
 						then 
-							export svc_exist=1
+							svc_exist=1
 						fi
 					fi
 				fi

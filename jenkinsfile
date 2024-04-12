@@ -40,7 +40,7 @@ pipeline {
 			fi
 
 			
-			echo -e "app_exist=$app_exist\nenv_exist$env_exist\nsvc_exist=$svc_exist" > ./variable.tmp
+			echo -e "app_exist=$app_exist\nenv_exist=$env_exist\nsvc_exist=$svc_exist" > ./variable.tmp
 			
 
 			if [[ "$ACTION" == "INIT"  ]] && [[ $svc_exist == 1  ]]; 

@@ -54,7 +54,7 @@ pipeline {
 				echo "Continue the execution in next stage"
 			fi
 
-			echo -e "$app_exist\n$env_exist\n$svc_exist" > ./variable.tmp
+			echo -e "app_exist=$app_exist\nenv_exist$env_exist\nsvc_exist=$svc_exist" > ./variable.tmp
 			
 			'''
 		

@@ -22,7 +22,13 @@ pipeline {
 		steps{
 			sh '''
 
-			
+			echo app: $APP_NAME
+			echo env: $SELECT_ENV
+			echo svc: $SERVICE_NAME
+			echo apex: $app_exist
+			echo envex: $env_exist
+			echo svcex: $svc_exist
+
 			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 
 			then 
 				app_exist=1

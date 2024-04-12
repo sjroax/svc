@@ -17,7 +17,7 @@ pipeline {
    
    stages {
 
-	  stage("To check if service exist"){
+	  stage("Service Existence Check"){
 		
 		steps{
 			sh '''
@@ -57,7 +57,21 @@ pipeline {
 			
 			'''
 		
+			}
+	  	}
+
+	  stage("Action Execution"){
+		
+		steps{
+			
+			sh ''' 
+				echo $svc_exist
+				echo $app_exist
+				echo $env_exist
+				
+			'''
+			}
 		}
-	  }
-}
+		
+     }
 }

@@ -81,7 +81,7 @@ pipeline {
 							copilot app init $APP_NAME
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
-							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
 							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 	
@@ -89,11 +89,11 @@ pipeline {
 						then
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
-							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
 							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 						else
-							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
 							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 						fi

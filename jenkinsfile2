@@ -81,21 +81,21 @@ pipeline {
 							copilot app init $APP_NAME
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
-							copilot svc init --app $APP_NAME --name SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME --yes
 	
 						elif [[ $app_exist == 1  ]] && [[ $env_exist == 0  ]];
 						then
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
-							copilot svc init --app $APP_NAME --name SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME --yes
 						else
-							copilot svc init --app $APP_NAME --name SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
+							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME --yes
 						fi
 						
 						'''

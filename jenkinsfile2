@@ -83,7 +83,7 @@ pipeline {
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME
+							sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 	
 						elif [[ $app_exist == 1  ]] && [[ $env_exist == 0  ]];
 						then
@@ -91,11 +91,11 @@ pipeline {
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME
+							sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 						else
 							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
-							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name $SERVICE_NAME
+							sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 						fi
 						
 						'''

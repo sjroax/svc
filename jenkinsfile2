@@ -82,17 +82,20 @@ pipeline {
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
-							copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							mvn clean install
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 	
 						elif [[ $app_exist == 1  ]] && [[ $env_exist == 0  ]];
 						then
 							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
-							copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							mvn clean install
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 						else
 							copilot svc init --app $APP_NAME --env $SELECT_ENV --name SERVICE_NAME --type "Load Balanced Web Service" --dockerfile ./Dockerfile
-							copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
+							mvn clean install
+							sudo copilot svc deploy --app $APP_NAME --env $ENV_NAME --name SERVICE_NAME --yes
 						fi
 						
 						'''
@@ -103,7 +106,8 @@ pipeline {
        
 						sh ''' 
 						
-						copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
+						mvn clean install
+						sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 						
 						'''
 					
@@ -114,8 +118,8 @@ pipeline {
 						sh '''
 						
 						sed -i sed "s/count: 0/count: $min_count/g" "copilot/$SERVICE_NAME/manifest.yml"
-						
-						copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
+						mvn clean install
+						sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 						
 						'''
  
@@ -126,8 +130,8 @@ pipeline {
 						sh '''
 						
 						sed -i 's/count: $min_count/count: 0/g' "copilot/$SERVICE_NAME/manifest.yml"
-						
-						copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
+						mvn clean install
+						sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
 					
 						'''
 					

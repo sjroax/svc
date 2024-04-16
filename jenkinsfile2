@@ -20,7 +20,7 @@ pipeline {
 		
 		steps{
 
-		withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+		withAWS(credentials: 'aws-credentials', region: 'us-east-1', profile: 'default') {
 			sh '''
 
 			svc_exist=0

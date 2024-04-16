@@ -20,7 +20,7 @@ pipeline {
 		
 		steps{
 
-		withAWS(credentials: 'aws-credentials', region: 'us-east-1', profile: 'default') {
+		withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
 			sh '''
 
 			svc_exist=0
@@ -69,7 +69,7 @@ pipeline {
 	  stage("Action Execution"){
 		
 		steps{
-		withAWS(credentials: 'aws-credentials', region: 'us-east-1', profile: 'default') {
+		withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
 			script{
 			
 				switch (ACTION) {
@@ -82,7 +82,7 @@ pipeline {
 						if [[ $app_exist == 0 ]]; 
 						then 
 							copilot app init $APP_NAME
-							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
+							copilot env init --app $APP_NAME --name $SELECT_ENV --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install
@@ -90,7 +90,7 @@ pipeline {
 	
 						elif [[ $app_exist == 1  ]] && [[ $env_exist == 0  ]];
 						then
-							copilot env init --app $APP_NAME --name $SELECT_ENV --profile default --default-config
+							copilot env init --app $APP_NAME --name $SELECT_ENV --default-config
 							copilot env deploy --app $APP_NAME --name $SELECT_ENV
 							copilot svc init --app $APP_NAME --name $SERVICE_NAME --svc-type "Load Balanced Web Service" --dockerfile ./Dockerfile
 							mvn clean install

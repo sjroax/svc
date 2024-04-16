@@ -69,7 +69,7 @@ pipeline {
 	  stage("Action Execution"){
 		
 		steps{
-		withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+		withAWS(credentials: 'aws-credentials', region: 'us-east-1', profile: 'default') {
 			script{
 			
 				switch (ACTION) {

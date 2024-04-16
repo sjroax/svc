@@ -5,7 +5,6 @@ pipeline {
         APP_NAME = "ap1"
         SERVICE_NAME = "svc1"
 	min_count = 1
-	health_path = "\\/demo\\/data"
 	}
    
    
@@ -130,7 +129,7 @@ pipeline {
 					case "STOP":
 					
 						sh '''
-						
+						health_path="\/demo\/data"
 						sed -i 's/count: $min_count/count: 0/g' "copilot/$SERVICE_NAME/manifest.yml"
 						sed -i "s/healthcheck: '$health_path'/healthcheck:/g" "copilot/$SERVICE_NAME/manifest.yml"
 						mvn clean install

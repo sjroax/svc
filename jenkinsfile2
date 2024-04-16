@@ -5,7 +5,7 @@ pipeline {
         APP_NAME = 'ap1'
         SERVICE_NAME = 'svc1'
 	min_count = 1
-	health_path = '\/demo\/data'
+	health_path = ""\/demo\/data""
 	}
    
    

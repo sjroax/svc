@@ -30,7 +30,7 @@ pipeline {
 			if [[ $(copilot app ls | grep $APP_NAME) == $APP_NAME ]]; 
 			then 
 				app_exist=1
-				if [[ $(copilot env ls --app $APP_NAME | grep $SELECT_ENV ) == $SELECT_ENV ]]; 
+				if [[ $(aws ecs list-clusters --output text | grep -i "$APP_NAME-$SELECT_ENV-Cluster" | wc -l ) == 1 ]]; 
 				then 
 					env_exist=1
 					if [[ $(copilot svc ls -a $APP_NAME | awk '{print $1}' | grep $SERVICE_NAME ) == $SERVICE_NAME ]]; 

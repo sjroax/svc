@@ -131,7 +131,7 @@ pipeline {
 					
 						sh '''
 						health_p=$(echo $health_path | sed 's/\\//\\\\\\//g')
-						sed -i 's/count: $min_count/count: 0/g' "copilot/$SERVICE_NAME/manifest.yml"
+						sed -i "s/count: $min_count/count: 0/g" "copilot/$SERVICE_NAME/manifest.yml"
 						sed -i "s/healthcheck: '$health_p'/healthcheck:/g" "copilot/$SERVICE_NAME/manifest.yml"
 						mvn clean install
 						sudo copilot svc deploy --app $APP_NAME --env $SELECT_ENV --name $SERVICE_NAME
